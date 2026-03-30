@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Users, Building2, HeartPulse } from 'lucide-react';
+import Tilt3D from './Tilt3D';
 
 const stats = [
     { icon: Award, value: 4, suffix: '+', label: 'Years of Excellence', color: 'text-primary-500', bg: 'bg-primary-50' },
@@ -39,7 +40,7 @@ function AnimatedCounter({ target, suffix }) {
     const formatted = target >= 1000 ? `${(count / 1000).toFixed(count >= target ? 0 : 1)}K` : count;
 
     return (
-        <span ref={ref} className="text-4xl md:text-5xl font-bold text-dark-900">
+        <span ref={ref} className="text-4xl md:text-5xl font-bold text-dark-900 dark:text-white">
             {formatted}{suffix}
         </span>
     );
@@ -47,26 +48,29 @@ function AnimatedCounter({ target, suffix }) {
 
 export default function StatsSection() {
     return (
-        <section className="relative py-20 bg-white overflow-hidden">
+        <section className="relative py-20 bg-white dark:bg-dark-950 transition-colors duration-500 overflow-hidden perspective-1000">
             {/* Decorative background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-dark-50/50 to-white"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-dark-50/50 to-white dark:from-dark-900/10 dark:to-dark-950"></div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                     {stats.map((stat, idx) => {
                         const Icon = stat.icon;
                         return (
-                            <div
-                                key={stat.label}
-                                className="text-center group animate-on-scroll"
-                                style={{ animationDelay: `${idx * 0.1}s` }}
-                            >
-                                <div className={`w-16 h-16 rounded-2xl ${stat.bg} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                                    <Icon className={`w-8 h-8 ${stat.color}`} />
+                            <Tilt3D key={stat.label}>
+                                <div
+                                    className="text-center p-6 rounded-2xl bg-white/50 dark:bg-dark-900/50 backdrop-blur-sm border border-transparent hover:border-primary-500/30 transition-all duration-300 animate-on-scroll preserve-3d"
+                                    style={{ animationDelay: `${idx * 0.1}s` }}
+                                >
+                                    <div className={`w-16 h-16 rounded-2xl ${stat.bg} dark:bg-dark-800 flex items-center justify-center mx-auto mb-4 translate-z-20`}>
+                                        <Icon className={`w-8 h-8 ${stat.color}`} />
+                                    </div>
+                                    <div className="translate-z-10">
+                                        <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                                        <p className="text-dark-500 dark:text-dark-400 text-sm mt-2 font-medium">{stat.label}</p>
+                                    </div>
                                 </div>
-                                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                                <p className="text-dark-500 text-sm mt-2 font-medium">{stat.label}</p>
-                            </div>
+                            </Tilt3D>
                         );
                     })}
                 </div>

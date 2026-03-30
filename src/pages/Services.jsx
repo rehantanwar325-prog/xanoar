@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import servicesBg from '../assets/images/services-bg.png';
+import Tilt3D from '../components/Tilt3D';
 
 const services = [
     {
@@ -45,7 +46,7 @@ export default function Services() {
     }, []);
 
     return (
-        <main>
+        <main className="perspective-1000">
             {/* Page Hero */}
             <section className="relative pt-40 pb-20 bg-hero-gradient dark:bg-dark-950 overflow-hidden transition-colors duration-500">
                 <div className="absolute inset-0 opacity-10 dark:opacity-5">
@@ -53,25 +54,27 @@ export default function Services() {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark-950/30 dark:to-dark-950/80"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                    <div className="max-w-3xl">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 dark:bg-primary-500/20 text-white/90 dark:text-primary-300 text-sm font-medium mb-6 backdrop-blur-sm">
-                            Our Services
-                        </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                            End-to-End Healthcare
-                            <span className="block text-primary-200 dark:text-primary-400">Solutions That Deliver</span>
-                        </h1>
-                        <p className="text-lg text-white/70 dark:text-dark-300 leading-relaxed max-w-xl">
-                            From staffing and consulting to training and compliance, we offer a comprehensive suite of services designed to help healthcare organizations thrive.
-                        </p>
-                    </div>
+                    <Tilt3D>
+                        <div className="max-w-3xl preserve-3d">
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 dark:bg-primary-500/20 text-white/90 dark:text-primary-300 text-sm font-medium mb-6 backdrop-blur-sm translate-z-20">
+                                Our Services
+                            </span>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 translate-z-50">
+                                End-to-End Healthcare
+                                <span className="block text-primary-200 dark:text-primary-400">Solutions That Deliver</span>
+                            </h1>
+                            <p className="text-lg text-white/70 dark:text-dark-300 leading-relaxed max-w-xl translate-z-20">
+                                From staffing and consulting to training and compliance, we offer a comprehensive suite of services designed to help healthcare organizations thrive.
+                            </p>
+                        </div>
+                    </Tilt3D>
                 </div>
             </section>
 
             {/* Services Detail */}
             <section className="section-padding bg-white dark:bg-dark-900 transition-colors duration-500">
                 <div className="max-w-7xl mx-auto">
-                    <div className="space-y-20">
+                    <div className="space-y-24">
                         {services.map((service, idx) => {
                             const Icon = service.icon;
                             const colors = colorMap[service.color];
@@ -80,40 +83,44 @@ export default function Services() {
                             return (
                                 <div
                                     key={service.title}
-                                    className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center animate-on-scroll`}
+                                    className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 items-center animate-on-scroll`}
                                     style={{ animationDelay: `${idx * 0.1}s` }}
                                 >
                                     {/* Visual */}
-                                    <div className="lg:w-5/12">
-                                        <div className={`relative rounded-2xl ${colors.bg} p-12 flex items-center justify-center transition-colors duration-500`}>
-                                            <div className={`w-32 h-32 rounded-3xl bg-white dark:bg-dark-800 shadow-card dark:shadow-none border border-transparent dark:border-dark-700 flex items-center justify-center transition-colors duration-500`}>
-                                                <Icon className={`w-16 h-16 ${colors.text} transition-colors duration-500`} />
+                                    <div className="lg:w-5/12 perspective-1000 w-full">
+                                        <Tilt3D>
+                                            <div className={`relative rounded-[2.5rem] ${colors.bg} p-16 flex items-center justify-center transition-colors duration-500 preserve-3d`}>
+                                                <div className={`w-40 h-40 rounded-[2rem] bg-white dark:bg-dark-800 shadow-2xl border border-white/50 dark:border-dark-700 flex items-center justify-center transition-all duration-500 translate-z-50`}>
+                                                    <Icon className={`w-20 h-20 ${colors.text} transition-colors duration-500 scale-110`} />
+                                                </div>
+                                                {/* Floating badge */}
+                                                <div className="absolute -bottom-5 -right-5 px-6 py-3 rounded-2xl bg-white dark:bg-dark-800 shadow-xl border border-dark-100 dark:border-dark-700 transition-colors duration-500 translate-z-100 ring-4 ring-white/50 dark:ring-dark-900/50">
+                                                    <span className={`text-lg font-black ${colors.text} transition-colors duration-500`}>0{idx + 1}</span>
+                                                </div>
                                             </div>
-                                            {/* Floating badge */}
-                                            <div className="absolute -bottom-3 -right-3 px-4 py-2 rounded-xl bg-white dark:bg-dark-800 shadow-card-hover dark:shadow-none border border-dark-100 dark:border-dark-700 transition-colors duration-500">
-                                                <span className={`text-xs font-bold ${colors.text} transition-colors duration-500`}>0{idx + 1}</span>
-                                            </div>
-                                        </div>
+                                        </Tilt3D>
                                     </div>
 
                                     {/* Content */}
                                     <div className="lg:w-7/12">
-                                        <h2 className="text-2xl md:text-3xl font-bold text-dark-900 dark:text-white mb-4 transition-colors duration-500">{service.title}</h2>
-                                        <p className="text-dark-500 dark:text-dark-400 leading-relaxed mb-6 transition-colors duration-500">{service.description}</p>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                                        <h2 className="text-3xl md:text-4xl font-bold text-dark-900 dark:text-white mb-6 transition-colors duration-500">{service.title}</h2>
+                                        <p className="text-dark-500 dark:text-dark-400 leading-relaxed mb-8 text-lg transition-colors duration-500">{service.description}</p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                                             {service.features.map((feature) => (
-                                                <div key={feature} className="flex items-center gap-2">
-                                                    <CheckCircle className={`w-5 h-5 ${colors.text} flex-shrink-0 transition-colors duration-500`} />
-                                                    <span className="text-sm text-dark-700 dark:text-dark-300 font-medium transition-colors duration-500">{feature}</span>
+                                                <div key={feature} className="flex items-center gap-3 group">
+                                                    <div className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                                                        <CheckCircle className={`w-5 h-5 ${colors.text} transition-colors duration-500`} />
+                                                    </div>
+                                                    <span className="text-base text-dark-700 dark:text-dark-300 font-medium transition-colors duration-500">{feature}</span>
                                                 </div>
                                             ))}
                                         </div>
                                         <Link
                                             to="/contact"
-                                            className="btn-primary text-sm group"
+                                            className="btn-primary text-base px-8 group"
                                         >
                                             Request This Service
-                                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                                         </Link>
                                     </div>
                                 </div>
@@ -124,7 +131,7 @@ export default function Services() {
             </section>
 
             {/* Process */}
-            <section className="section-padding bg-dark-50/50 dark:bg-dark-950 transition-colors duration-500">
+            <section className="section-padding bg-dark-50/50 dark:bg-dark-950 transition-colors duration-500 overflow-hidden">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-1.5 rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 text-sm font-semibold mb-4">
@@ -135,20 +142,24 @@ export default function Services() {
                             <span className="gradient-text block">4-Step Process</span>
                         </h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {[
                             { step: '01', title: 'Consultation', desc: 'We start with a thorough assessment of your needs, challenges, and goals.' },
                             { step: '02', title: 'Custom Plan', desc: 'Our experts craft a tailored solution strategy aligned with your objectives.' },
                             { step: '03', title: 'Implementation', desc: 'We deploy resources and solutions with precision, ensuring minimal disruption.' },
                             { step: '04', title: 'Ongoing Support', desc: 'Continuous monitoring, optimization, and support to ensure lasting results.' },
                         ].map((item, idx) => (
-                            <div key={item.step} className="text-center animate-on-scroll" style={{ animationDelay: `${idx * 0.1}s` }}>
-                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mx-auto mb-5 text-white font-bold text-lg shadow-btn dark:shadow-none">
-                                    {item.step}
+                            <Tilt3D key={item.step}>
+                                <div className="text-center p-8 rounded-3xl bg-white dark:bg-dark-900 border border-dark-100 dark:border-dark-800 shadow-lg hover:shadow-2xl transition-all duration-500 animate-on-scroll preserve-3d" style={{ animationDelay: `${idx * 0.1}s` }}>
+                                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mx-auto mb-6 text-white font-black text-2xl shadow-xl translate-z-50">
+                                        {item.step}
+                                    </div>
+                                    <div className="translate-z-20">
+                                        <h3 className="text-xl font-bold text-dark-900 dark:text-white mb-3 transition-colors duration-500">{item.title}</h3>
+                                        <p className="text-dark-500 dark:text-dark-400 text-sm leading-relaxed transition-colors duration-500">{item.desc}</p>
+                                    </div>
                                 </div>
-                                <h3 className="text-lg font-bold text-dark-900 dark:text-white mb-2 transition-colors duration-500">{item.title}</h3>
-                                <p className="text-dark-500 dark:text-dark-400 text-sm transition-colors duration-500">{item.desc}</p>
-                            </div>
+                            </Tilt3D>
                         ))}
                     </div>
                 </div>

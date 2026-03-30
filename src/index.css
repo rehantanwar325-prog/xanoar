@@ -79,3 +79,37 @@
     @apply w-full px-5 py-4 rounded-2xl border border-dark-200 dark:border-dark-700 bg-white dark:bg-dark-900/50 text-dark-800 dark:text-dark-100 placeholder-dark-400 dark:placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300 shadow-sm dark:shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.1)];
   }
 }
+
+@layer utilities {
+  /* 3D Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .translate-z-10 {
+    transform: translateZ(10px);
+  }
+  .translate-z-20 {
+    transform: translateZ(20px);
+  }
+  .translate-z-50 {
+    transform: translateZ(50px);
+  }
+  .translate-z-80 {
+    transform: translateZ(80px);
+  }
+  .translate-z-100 {
+    transform: translateZ(100px);
+  }
+  .shadow-3d {
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+  }
+}
